@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> //declaration; instruction to the web browser about what version of HTML the page is written in; here HTML5
 <?php
 require_once "database.php";
 $db = Database::getInstance();
