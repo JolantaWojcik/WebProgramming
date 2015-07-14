@@ -1,34 +1,34 @@
 <?php
-ini_set('display_errors', 1);
+ini_set('display_errors', 1); // ini_set - ustawia wartosci opcji konfiguracyjnej. CO ONZACZA 1?
 ini_set('max_execution_time', 50);
-$time1 = microtime(true);
-require_once('database.php');
+$time1 = microtime(true); //microtime podaje dokladny czas, dzieki true zwara float zamiast string
+require_once('database.php'); //dziala jak Require poza tym, że sprawdza czy dany plik by już dolaczony, jesli tak to go nie dolacza znowu
 
-$xml = new DOMDocument();
-$xml->load('philosophers.xml');
+$xml = new DOMDocument(); //DOMDocument - reprezentuje caly dokmunet HTMl lub XML; serves as a root of a document tree
+$xml->load('philosophers.xml'); //wywolujemy
 
-$db = Database::getInstance();
-$itemsList = $xml->getElementsByTagName('result');
+$db = Database::getInstance(); //returns the Datatbase object instance (Chyba)
+$itemsList = $xml->getElementsByTagName('result'); 
 $count = $itemsList->length;
 
 $item = $xml->getElementsByTagName('binding');
 $el = $item->length;
 
 
-for($i = 0; $i < $el; $i++)
+for($i = 0; $i < $el; $i++) 
 {
-    if($item->item($i)->getAttribute('name') === 'filozof')
+    if($item->item($i)->getAttribute('name') === 'filozof') //getAttribute - zwraca wartosci atrybutu
     {
-        $filnum[] = $i;
+        $filnum[] = $i; 
     }
 }
 
 $a = 0;
 //$urlfile = fopen("urls.txt", "w");
-foreach($filnum as $key => $num)
+foreach($filnum as $key => $num) // CO ROBI  => 
 {
-   $db = Database::getInstance();
-   if(isset($filnum[$key +1]))
+   $db = Database::getInstance(); //returns the Datatbase object instance (Chyba)
+   if(isset($filnum[$key +1])) // zwiekszamy key o 1; isset - determine if variable is set and is not null
    {
        $numb = $filnum[$key +1];
    } else $numb = $el;
@@ -36,12 +36,12 @@ foreach($filnum as $key => $num)
    for($i = $a; $i < $numb; $i++)
    {
        $a = $i + 1;
-       switch($item->item($i)->getAttribute('name'))
+       switch($item->item($i)->getAttribute('name')) // wywolujemy; getAttribute zwarca wartosc atrybutu
        {
            case 'filozof':
-                $url = $item->item($i)->nodeValue;
+                $url = $item->item($i)->nodeValue; 
                 $regex = '/http:\/\/dbpedia.org\/resource\/(.*)/';
-                preg_match($regex, $url, $match);
+                preg_match($regex, $url, $match); //
                 $url = "https://en.wikipedia.org/wiki/" . $match[1];
                 //fwrite($urlfile, $url);
                 $philarray['url'] = $url;
