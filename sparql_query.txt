@@ -1,3 +1,6 @@
+//syntax source http://www.w3.org/TR/rdf-sparql-query/
+//Distinct modifier: ensure solutions in the sequence are unique
+//? query finds
 SELECT DISTINCT ?filozof, ?label, MIN(?deathPlace), ?era, MIN(?religion), ?birthDate
 WHERE {
  ?filozof rdf:type dbpedia-owl:Philosopher.
@@ -8,7 +11,7 @@ WHERE {
  OPTIONAL {?filozof dbpprop:religion ?r.
  ?r rdfs:label ?religion.}
  ?filozof dbpprop:birthDate ?birthDate.
-
+// SPARQL FILTERs restrict solutions to those for which the filter expression evaluates to TRUE.
 FILTER (langMatches(lang(?label),"en")).
 FILTER (langMatches(lang(?deathPlace),"en")).
 }
