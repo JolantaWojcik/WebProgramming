@@ -24,33 +24,33 @@ $db = Database::getInstance();
             Choose religion:
             <?php 
                 $db->getDistinct('religion', 'philosophers');
-                $results = $db->results();
+                $results = $db->results(); //czy $results to array?
             ?>
             <form action="" id="religion" method="post">
                 <select name="religion" form="religion">
                 <option selected="selected">Unknown</option>
                     <?php
-                        foreach($results as $result)
+                        foreach($results as $result) //ananlizujemy RESULTS, a aktualnie przetwarzany element ma być zapisany w zmiennej RESULT (Chyba)
                         {
-                            if(!($result->religion === "Unknown"))
+                            if(!($result->religion === "Unknown")) //jesli nie wywola religion z result to jest identyczne z Unknown (chyba)
                             {
-                                echo "<option value=\"" . $result->religion . "\">" . $result->religion . "</option>";
+                                echo "<option value=\"" . $result->religion . "\">" . $result->religion . "</option>"; // NIE WIEM CO TU SIE DZIEJE, CO ROBI "\"?
                             }
                         }
                     ?>
                 </select>
                 </br>
-                <input type="submit" value="go!">
+                <input type="submit" value="go!"> //define a submit button
             </form>
             <p>Philosophers that belongs to this religion are:</p>
             <?php
-            if(isset($_POST['religion']))
+            if(isset($_POST['religion'])) // isset - determine if variable is set and is not null; $_POST - gormadzenie wartosci formularza, dane sa niewidoczne w adresie
             {
-                $db->get('name, url', 'philosophers', array('religion', '=', $_POST['religion']));
+                $db->get('name, url', 'philosophers', array('religion', '=', $_POST['religion'])); // znak = oznacza przypisanie
                 $results = $db->results();
                 foreach($results as $result)
                 {
-                    echo "<div class='name'><a target='_blank' href='" . $result->url . "'>" . $result->name . "</a></div>";
+                    echo "<div class='name'><a target='_blank' href='" . $result->url . "'>" . $result->name . "</a></div>"; // kropa pelni role lacznika
                 }
             }
             ?>
