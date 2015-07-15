@@ -16,16 +16,19 @@ class Database
 	//$con=pg_connect("host=sbazy user=s175371 dbname=s175371 password=9KMgKf6t"); 	
 	//('pgsql:host=localhost;dbname=DBNAME', 'USERNAME', 'PASSWORD');
 	
-            $this->_pdo = new PDO('pgsql:host=sbazy; dbname=s175371', 's175371', '9KMgKf6t'); // This jest referencja do danego obiektu
+            $this->_pdo = new PDO('pgsql:host=sbazy; dbname=s175371', 's175371', '9KMgKf6t'); 
+            // This jest referencja do danego obiektu
 		//('mysql:host=localhost; dbname=dogs', 'root', 'piaskowa123',
                 //array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-            $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //PDO - PHP Data Objects class. Attr_errmode - error reporting.  
-            									//Errmode_exception - setting error code and thoriwng PDOException
-            									// and set its properties to reflect the error code and error info
+            $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+            //PDO - PHP Data Objects class. Attr_errmode - error reporting.  
+            //Errmode_exception - setting error code and thoriwng PDOException
+            // and set its properties to reflect the error code and error info
         }
         catch(PDOException $e) 
         {
-            die($e->getMessage()); //die - wysiwetla komunikat i konczy wykonanie skryptu gdy zwrocona wartosc jest False
+            die($e->getMessage()); 
+            //die - wysiwetla komunikat i konczy wykonanie skryptu gdy zwrocona wartosc jest False
             			   // gets die PDOException Message
         }
     }
@@ -41,17 +44,19 @@ class Database
     }
     
     public function insert($table, $data = array()) {
+    	//array in PHP is actually an ordered map. A map is a type that associates values to keys.
 			$keys = array_keys($data);
 			$values = '';
 			$x = 1;
 			
-			foreach ($keys as $key) {
-				$values .= '?';
+			foreach ($keys as $key) { // equivalent for (keys : key)
+				$values .= '?'; // do values dodajemy znak '?'
 				if($x < count($keys)) {
 					$values .= ', ';      // --.' dokładanie do stringu
 				}
 				$x++;
-			}			
+			}
+			//implode zamienia tablice na cig rozdzielony ustalonym znakiem
 			$sql = "INSERT INTO {$table} (" . implode(',',$keys) . ") VALUES ({$values})";
 			if(!$this->query($sql, $data)->error()) {
 				return true;
@@ -85,6 +90,7 @@ class Database
     
     private function action($action, $table, $where = array())
     {
+    	//wykonaj sprawdzanie dla where i wyślij z dwiema tablicami
         if(count($where) === 3)
         {
             $field = $where[0];
@@ -100,7 +106,7 @@ class Database
                     return $this;
                 }
             }
-        } else
+        } else //jeśli drugie where nie jest wypełnione, wyślij tylko z pierwszym
         {
             if(!$this->query("{$action} FROM {$table}")->error())
             {
