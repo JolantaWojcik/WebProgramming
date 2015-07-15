@@ -30,11 +30,11 @@ $db = Database::getInstance();
                 <select name="religion" form="religion">
                 <option selected="selected">Unknown</option>
                     <?php
-                        foreach($results as $result) //ananlizujemy RESULTS, a aktualnie przetwarzany element ma być zapisany w zmiennej RESULT (Chyba)
+                        foreach($results as $result) //ananlizujemy RESULTS, a aktualnie przetwarzany element ma być zapisany w zmiennej RESULT
                         {
-                            if(!($result->religion === "Unknown")) //jesli nie wywola religion z result to jest identyczne z Unknown (chyba)
+                            if(!($result->religion === "Unknown")) //jesli nie wywola religion z result to jest identyczne z Unknown
                             {
-                                echo "<option value=\"" . $result->religion . "\">" . $result->religion . "</option>"; // NIE WIEM CO TU SIE DZIEJE, CO ROBI "\"?
+                                echo "<option value=\"" . $result->religion . "\">" . $result->religion . "</option>"; 
                             }
                         }
                     ?>
