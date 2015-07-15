@@ -70,7 +70,7 @@ foreach($filnum as $key => $num) // CO ROBI  =>
        }
    } 
    $results[] = $philarray;
-   echo "<pre>"; // co robi pre?
+   echo "<pre>"; 
    //$db->insert('philosophers', $philarray);                                 //dodaje rekordy do bazy
    echo "</pre>";
 }
@@ -79,5 +79,6 @@ echo "<pre>";
 print_r($results); //wyswietla czytalne dla czlowieka results
 
 echo "</pre>";
-$time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]; //co robi Myslnik? ; Request_time_float - z superglobal array Server. zawiera zancznik czasu poczatku zapytania z mikrosekundowa precyzja
+$time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]; 
+//Request_time_float - z superglobal array Server. zawiera zancznik czasu poczatku zapytania z mikrosekundowa precyzja
 echo $time;
